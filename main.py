@@ -38,9 +38,5 @@ def main():
     db.drop_tables()
 
 
-
-
-
 if __name__ == '__main__':
-    # python main.py D:\Tasks_LeverX_Group\Tasks3_parser_json_and_mysql\students.json D:\Tasks_LeverX_Group\Tasks3_parser_json_and_mysql\rooms.json json
     main()

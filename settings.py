@@ -3,5 +3,4 @@ SETTINGS = {
     'user': 'Michail',
     'password': 'useruser',
     'database': 'test_db'
-
 }
