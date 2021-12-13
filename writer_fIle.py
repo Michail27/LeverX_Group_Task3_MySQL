@@ -20,8 +20,9 @@ class JsonWriter(AbstractWriter):
 
 
 class XmlWriter(AbstractWriter):
-    def write(self, result_list, name):
+    @staticmethod
+    def write(result_list, name):
         xml_doc = dicttoxml(result_list, attr_type=False).decode('utf-8')
         pars_xml = parseString(xml_doc)
-        with open("answer.xml", "w") as f:
+        with open('{}.xml'.format(name), "w") as f:
             pars_xml.writexml(f, indent='\n', addindent='\t')

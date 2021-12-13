@@ -1,7 +1,7 @@
 import argparse
 from json_read_file import JsonLoad
 from connect_db import ConnectorDb
-from writer_fIle import JsonWriter
+from writer_fIle import JsonWriter, XmlWriter
 from select_db import SelectDb
 
 
@@ -31,6 +31,9 @@ def main():
     if args.out_format == 'json':
         for name, qry in SelectDb.get_result_select().items():
             JsonWriter.write(result_list=db.get_select(qry), name=name)
+    elif args.out_format == 'xml':
+        for name, qry in SelectDb.get_result_select().items():
+            XmlWriter.write(result_list=db.get_select(qry), name=name)
 
     db.drop_tables()
 
