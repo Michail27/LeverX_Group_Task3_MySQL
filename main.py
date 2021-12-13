@@ -1,6 +1,8 @@
 import argparse
 from json_read_file import JsonLoad
 from connect_db import ConnectorDb
+from writer_fIle import JsonWriter
+from select_db import SelectDb
 
 
 def args_parsing():
@@ -15,7 +17,7 @@ def args_parsing():
 def main():
     args = args_parsing()
     format_args = ['xml', 'json']
-    if args.out_format.lower() not in format_args:
+    if args.out_format not in format_args:
         raise ValueError('Invalid format.')
     db = ConnectorDb()
     db.create_db()
@@ -24,6 +26,12 @@ def main():
     db.insert_rooms(JsonLoad.read_json(args.rooms_path))
     db.insert_students(JsonLoad.read_json(args.students_path))
     db.commit()
+
+    if args.out_format == 'json':
+        qry = SelectDb.get_number_of_students()
+        JsonWriter.write(db.get_select(qry), name='number_of_students')
+
+
 
 
 if __name__ == '__main__':

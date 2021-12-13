@@ -43,3 +43,15 @@ class ConnectorDb:
 
     def commit(self):
         self.connector.commit()
+
+    def get_select(self, qry):
+        self.cursor.execute(qry)
+        columns = [i[0] for i in self.cursor.description]
+        results_qry = self.cursor.fetchall()
+        result_list = []
+        for result in results_qry:
+            dict_rez = {}
+            for prop, val in zip(columns, result):
+                dict_rez[prop] = val
+            result_list.append(dict_rez)
+        return result_list

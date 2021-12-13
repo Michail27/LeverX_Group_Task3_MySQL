@@ -3,7 +3,7 @@ class DbTables:
 
     @staticmethod
     def create_db():
-        return 'CREATE DATABASE IF NOT EXISTS  test_db'
+        return '''CREATE DATABASE IF NOT EXISTS  test_db'''
 
     @staticmethod
     def create_table_room():
