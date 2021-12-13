@@ -28,8 +28,8 @@ def main():
     db.commit()
 
     if args.out_format == 'json':
-        qry = SelectDb.get_number_of_students()
-        JsonWriter.write(db.get_select(qry), name='number_of_students')
+        for name, qry in SelectDb.get_result_select().items():
+            JsonWriter.write(result_list=db.get_select(qry), name=name)
 
 
 
