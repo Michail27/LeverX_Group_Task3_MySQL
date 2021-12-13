@@ -41,6 +41,9 @@ class ConnectorDb:
                                                                  student['room'],
                                                                  student['sex']))
 
+    def create_index_roomid_in_students(self):
+        self.cursor.execute(DbTables.create_index_roomid_in_students())
+
     def commit(self):
         self.connector.commit()
 

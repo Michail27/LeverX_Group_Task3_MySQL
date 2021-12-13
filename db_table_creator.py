@@ -22,5 +22,9 @@ class DbTables:
                                           FOREIGN KEY(room) REFERENCES Rooms(id) ON DELETE CASCADE)'''
 
     @staticmethod
+    def create_index_roomid_in_students():
+        return '''CREATE INDEX roomid ON students(name)'''
+
+    @staticmethod
     def drop_tables():
-        return ['DROP TABLE Rooms', 'DROP TABLE Students']
+        return ['drop table students', 'drop table rooms']

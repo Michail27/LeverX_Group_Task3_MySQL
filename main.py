@@ -25,11 +25,15 @@ def main():
     db.create_table_students()
     db.insert_rooms(JsonLoad.read_json(args.rooms_path))
     db.insert_students(JsonLoad.read_json(args.students_path))
+    db.create_index_roomid_in_students()
     db.commit()
 
     if args.out_format == 'json':
         for name, qry in SelectDb.get_result_select().items():
             JsonWriter.write(result_list=db.get_select(qry), name=name)
+
+    db.drop_tables()
+
 
 
 
