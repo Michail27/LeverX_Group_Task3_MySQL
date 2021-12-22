@@ -16,9 +16,7 @@ def args_parsing():
 
 def main():
     args = args_parsing()
-    format_args = ['xml', 'json']
-    if args.out_format not in format_args:
-        raise ValueError('Invalid format.')
+    format_out = {'json': JsonWriter(), 'xml': XmlWriter()}
     db = ConnectorDb()
     db.create_db()
     db.create_table_rooms()
@@ -27,14 +25,11 @@ def main():
     db.insert_students(JsonLoad.read_json(args.students_path))
     db.create_index_roomid_in_students()
     db.commit()
-
-    if args.out_format == 'json':
+    try:
         for name, qry in SelectDb.get_result_select().items():
-            JsonWriter.write(result_list=db.get_select(qry), name=name)
-    elif args.out_format == 'xml':
-        for name, qry in SelectDb.get_result_select().items():
-            XmlWriter.write(result_list=db.get_select(qry), name=name)
-
+            format_out[args.out_format].write(result_list=db.get_select(qry), name=name)
+    except KeyError:
+        raise ValueError('This format is not supported')
     db.drop_tables()
 
 
